@@ -44,7 +44,6 @@ export const register = async (req, res, next) => {
     } else {
         console.log('createeeee')
       const passwordHash = hash(password);
-      console.log('length of new passwordHash: ', passwordHash)
       await authDAL.createNewAccount(username, passwordHash, name);
       res.send({
         message: "create account successfully",

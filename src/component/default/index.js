@@ -8,7 +8,6 @@ router.get("/", (req, res) => {
 router.get("/list_item", async (req, res, next) => {
   const sql = "select * from product";
   const results = await dbUtil.queryOne(sql);
-  console.log(results);
   res.json({
       data: results,
       message: 'success'
