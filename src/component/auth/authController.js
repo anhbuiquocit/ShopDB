@@ -2,7 +2,6 @@ import * as authDAL from "./authDAL.js";
 import * as jwtUtil from "../../util/Jwt.js";
 import { hash, compare } from "../../util/Bcrypt.js";
 export const login = async (req, res, next) => {
-  console.log("Find user...");
   const { username, password } = req.body;
   if (username && password) {
     const user = await authDAL.getUserByUsername(username);
@@ -28,6 +27,11 @@ export const login = async (req, res, next) => {
         });
       }
     }
+    else{
+      res.status(401).send({
+        mesage: 'Username is not correct'
+      })
+    }
   } else {
     res.status(400).json({
       error: "username and pasword cant of undefind",
@@ -42,7 +46,6 @@ export const register = async (req, res, next) => {
     if (user) {
       next("The username is valid");
     } else {
-        console.log('createeeee')
       const passwordHash = hash(password);
       await authDAL.createNewAccount(username, passwordHash, name);
       res.send({

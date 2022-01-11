@@ -7,7 +7,7 @@ export const jwtFilter = async (req, res, next) => {
     if (token) {
       try {
         const tokenDecode = await jwtUtil.verifyToken(token);
-        console.log(tokenDecode);
+        req.tokenDecode = tokenDecode;
         next();
       } catch (err) {
         next("Unauthorized");
